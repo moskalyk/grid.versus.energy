@@ -10,76 +10,69 @@ function App() {
   const ref2 = useRef<any>(null)
 
   const handleClick = () => {
-    console.log('clicked')
     setIsClicked(true)
   }
 
   const handleClick2 = () => {
-    console.log('clicked')
     setIsClicked2(true)
   }
 
   const onMouseRelease = () => {
-    console.log('test')
     setIsClicked(false)
   }
 
   const onMouseRelease2 = () => {
-    console.log('test')
     setIsClicked2(false)
   }
 
   const handleWindowTouchMove = (event: any) => {
     if(isClicked) {
-      console.log('isClicked')
-      console.log(event.clientX)
-      console.log(ref.current.getBoundingClientRect())
-      if((ref.current.getBoundingClientRect().x+ref.current.getBoundingClientRect().width) <= 
-        ref2.current.getBoundingClientRect().x 
-        || 
-        ref2.current.getBoundingClientRect().y >= (ref.current.getBoundingClientRect().y + ref.current.getBoundingClientRect().height)
-        ){
-        ref.current.style.transform = `translate(${event.touches[0].clientX-150}px)`
-      } 
+      if(!isSolved){
+        if((ref.current.getBoundingClientRect().x+ref.current.getBoundingClientRect().width) <= 
+          ref2.current.getBoundingClientRect().x 
+          || 
+          ref2.current.getBoundingClientRect().y >= (ref.current.getBoundingClientRect().y + ref.current.getBoundingClientRect().height)
+          ||
+          ref2.current.getBoundingClientRect().y + ref2.current.getBoundingClientRect().height < ref.current.getBoundingClientRect().y
 
-      if(event.touches[0].clientX > 340){
-        setIsSolved(true)
+          ){
+          ref.current.style.transform = `translate(${event.touches[0].clientX-150}px)`
+        } 
+
+        if(event.touches[0].clientX > 340){
+          setIsSolved(true)
+        }
       }
     }
   }
   const handleWindowMouseMove = (event: any) => {
     if(isClicked) {
-      console.log('isClicked')
-      console.log(event.clientX)
-      console.log(ref.current.getBoundingClientRect())
-      if((ref.current.getBoundingClientRect().x+ref.current.getBoundingClientRect().width) <= 
-        ref2.current.getBoundingClientRect().x 
-        || 
-        ref2.current.getBoundingClientRect().y >= (ref.current.getBoundingClientRect().y + ref.current.getBoundingClientRect().height)
-        ){
-        ref.current.style.transform = `translate(${event.clientX-150}px)`
-      } 
-      if(event.clientX > 340){
-        setIsSolved(true)
+      if(!isSolved){
+        if((ref.current.getBoundingClientRect().x+ref.current.getBoundingClientRect().width) <= 
+          ref2.current.getBoundingClientRect().x 
+          || 
+          ref2.current.getBoundingClientRect().y >= (ref.current.getBoundingClientRect().y + ref.current.getBoundingClientRect().height)
+          ||
+          ref2.current.getBoundingClientRect().y + ref2.current.getBoundingClientRect().height < ref.current.getBoundingClientRect().y
+          ){
+          ref.current.style.transform = `translate(${event.clientX-450}px)`
+        } 
+        if(ref.current.getBoundingClientRect().x > 540){
+          setIsSolved(true)
+        }
       }
     }
   }
 
   const handleWindowMouseMove2 = (event: any) => {
     if(isClicked2) {
-      console.log('isClicked')
-      console.log(event)
       ref2.current.style.transform = `translateY(${event.clientY-450}px)`
-      console.log(event.clientY)
     }
   }
 
   const handleWindowTouchMove2 = (event: any) => {
     if(isClicked2) {
-      console.log('isClicked')
-      console.log(event)
       ref2.current.style.transform = `translateY(${event.touches[0].clientY-450}px)`
-      console.log(event.clientY)
     }
   }
 
@@ -111,10 +104,8 @@ function App() {
         'touchmove',
         handleWindowTouchMove2,
       );
-
-
     };
-  }, [isClicked, isClicked2, ref, ref2])
+  }, [isClicked, isClicked2, ref, ref2, isSolved])
 
   useEffect(() => {
 
@@ -135,7 +126,7 @@ function App() {
       <p>some experience with:</p>
       <ul>
         <li>proof of concept AI voice application that seeded a business to double digit MM revenue</li>
-        <li>business cases, workshops, & explainable AI strategy for series A startup whom raised 100MM</li>
+        <li>business cases, workshops, & explainable AI strategy for series A startup whom raised $100MM</li>
         <li>land registry POC with united nations</li>
         <li>multi-verse gaming education</li>
         <li>fault tolerant p2p systems and/with offline based usb data ownership</li>
